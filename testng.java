@@ -1,47 +1,59 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class ScenarioTest {
+public class FirefoxScenarioTest {
+
     private WebDriver driver;
 
-    @BeforeMethod
+    @BeforeClass
     public void setUp() {
-        // Set the system property to use FirefoxDriver
+        // Set the path of the geckodriver executable.
         System.setProperty("webdriver.gecko.driver", "path/to/geckodriver");
-        // Instantiate FirefoxDriver
         driver = new FirefoxDriver();
     }
 
-    @Test
-    public void testScenario() {
-        // Maximize the browser window
+    @Test(priority = 1)
+    public void openFirefoxAndMaximize() {
         driver.manage().window().maximize();
+    }
 
-        // Navigate to "http://iamneo.ai"
+    @Test(priority = 2)
+    public void navigateToIamNeoWebsite() {
         driver.get("http://iamneo.ai");
+    }
 
-        // Navigate to "https://www.facebook.com"
+    @Test(priority = 3)
+    public void navigateToFacebookPage() {
         driver.get("https://www.facebook.com");
+    }
 
-        // Navigate back to the iamneo.ai website
+    @Test(priority = 4)
+    public void navigateBackToIamNeoWebsite() {
         driver.navigate().back();
+    }
 
-        // Print the URL of the current page
+    @Test(priority = 5)
+    public void printCurrentURL() {
         System.out.println("Current URL: " + driver.getCurrentUrl());
+    }
 
-        // Navigate forward
+    @Test(priority = 6)
+    public void navigateForward() {
         driver.navigate().forward();
+    }
 
-        // Reload the page
+    @Test(priority = 7)
+    public void reloadPage() {
         driver.navigate().refresh();
     }
 
-    @AfterMethod
+    @AfterClass
     public void tearDown() {
-        // Close the browser
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
